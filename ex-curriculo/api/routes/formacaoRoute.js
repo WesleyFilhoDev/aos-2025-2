@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createFormacao, deleteFormacao, getAllFormacoes, getFormacao, updateFormacao } from "../controllers/formacaoController";
+import { 
+  createFormacao, 
+  deleteFormacao, 
+  getAllFormacoes, 
+  getFormacao, 
+  updateFormacao 
+} from "../controllers/formacaoController.js";
 
 const router = Router();
 

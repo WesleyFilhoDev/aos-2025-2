@@ -1,10 +1,12 @@
+console.log(">>> DATABASE_URL =>", process.env.DATABASE_URL);
+
 import { Sequelize, DataTypes } from "sequelize";
 import pessoaModel from "./pessoaModel.js";
 import skillModel from "./skillModel.js";
 import formacaoModel from "./formacaoModel.js";
 import "dotenv/config";
 
-const sequelize = new Sequelize(process.env.POSTGRES_URL, {
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   protocol: "postgres",
   dialectOptions: {

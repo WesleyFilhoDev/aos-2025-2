@@ -1,7 +1,7 @@
 import { Router } from "express";
-import pessoaRoute from "./pessoaRoute";
-import formacaoRoute from "./formacaoRoute";
-import skillRoute from "./skillRoute";
+import pessoaRoute from "./pessoaRoute.js";
+import formacaoRoute from "./formacaoRoute.js";
+import skillRoute from "./skillRoute.js";
 
 const router = Router();
 
