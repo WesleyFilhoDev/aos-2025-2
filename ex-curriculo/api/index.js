@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.send('Hello from Express with Babel!');
+  res.send('Opa, to rodando certinho!');
 });
 
 app.use("/api", routes);
@@ -30,11 +30,11 @@ async function curriculumDefault() {
   const { Pessoa, Formacao, Skill } = models;
 
   const p1 = await Pessoa.create({
-    nome: "Pedro",
-    email: "pedrodelmiroexemplo@gmail.com",
-    phone: "5555-5555",
-    linkedin: "linkedin.com/in/delmiro",
-    github: "github.com/delmiro",
+    nome: "Wesley Filho",
+    email: "wesley@gmail.com",
+    phone: "4575-5555",
+    linkedin: "linkedin.com/in/wesley",
+    github: "github.com/wesley",
   });
 
   await Formacao.create({
@@ -50,34 +50,32 @@ async function curriculumDefault() {
   await Skill.create({ nome: "Spring Boot", nivel: "intermediário", pessoaId: p1.id });
 
   const p2 = await Pessoa.create({
-    nome: "Maria Silva",
-    email: "maria@example.com",
-    phone: "88888-8888",
-    linkedin: "linkedin.com/in/maria",
-    github: "github.com/maria",
+    nome: "Antonia Silva",
+    email: "antonia@example.com",
+    phone: "88888-4444",
+    linkedin: "linkedin.com/in/antonia",
+    github: "github.com/antonia",
   });
 
   await Formacao.create({
     instituicao: "UFRPE",
-    curso: "Engenharia da computação",
+    curso: "Engenharia do Petróleo",
     nivel: "Superior",
     inicio: "2021-01-01",
-    fim: "2024-12-31",
+    fim: "2027-10-31",
     pessoaId: p2.id,
   });
 
   await Skill.create({ nome: "JavaScript", nivel: "avançado", pessoaId: p2.id });
-  await Skill.create({ nome: "Node.js", nivel: "intermediário", pessoaId: p2.id });
+  await Skill.create({ nome: "Java", nivel: "intermediário", pessoaId: p2.id });
 
   console.log("Seed concluído com 2 currículos!");
 }
 
 models.sequelize
-  .sync({ force: eraseDatabaseOnSync })
-  .then(async () => {
-    console.log("Banco sincronizado e tabelas criadas");
-    await curriculumDefault();
-    app.listen(port, () => console.log(`Server running on port ${port}`));
+  .sync({ force: false })
+  .then(() => {
+    console.log("Banco sincronizado");
   })
   .catch((err) => console.error("Erro ao sincronizar banco:", err));
 

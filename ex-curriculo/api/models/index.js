@@ -1,10 +1,10 @@
-console.log(">>> DATABASE_URL =>", process.env.DATABASE_URL);
-
 import { Sequelize, DataTypes } from "sequelize";
 import pessoaModel from "./pessoaModel.js";
 import skillModel from "./skillModel.js";
 import formacaoModel from "./formacaoModel.js";
 import "dotenv/config";
+
+console.log(">>> DATABASE_URL =>", process.env.DATABASE_URL);
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
@@ -14,8 +14,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
       require: true,
       rejectUnauthorized: false,
     },
-  },
-  dialectModule: require("pg"),
+  }
 });
 
 const Pessoa = pessoaModel(sequelize, DataTypes);
@@ -43,14 +42,5 @@ Skill.belongsTo(Pessoa, {
   foreignKey: "pessoaId",
   as: "pessoa",
 });
-
-(async () => {
-  try {
-    await sequelize.sync({ alter: true });
-    console.log("Database synchronized successfully");
-  } catch (err) {
-    console.error("Error syncing database:", err);
-  }
-})();
 
 export default { sequelize, Pessoa, Skill, Formacao };
