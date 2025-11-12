@@ -1,8 +1,8 @@
 import express from 'express';
 import "dotenv/config";
 import cors from "cors";
-import models from './models';
-import routes from "./routes";
+import models from './models/index.js';
+import routes from "./routes/index.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,7 +14,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,8 +22,6 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api", routes);
-
-const eraseDatabaseOnSync = true;
 
 async function curriculumDefault() {
   const { Pessoa, Formacao, Skill } = models;
@@ -74,8 +71,16 @@ async function curriculumDefault() {
 
 models.sequelize
   .sync({ force: false })
-  .then(() => {
+  .then(async () => {
     console.log("Banco sincronizado");
+
+    // opcional: descomente se quiser popular o banco toda vez
+    // await curriculumDefault();
+
+    // ✅ Aqui está o que faltava!
+    app.listen(port, () => {
+      console.log(`🚀 Servidor rodando na porta ${port}`);
+    });
   })
   .catch((err) => console.error("Erro ao sincronizar banco:", err));
 
