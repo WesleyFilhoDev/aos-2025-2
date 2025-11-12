@@ -36,16 +36,19 @@ export const updateFormacao = async (req, res) => {
 }
 
 export const deleteFormacao = async (req, res) => {
-    try {
-        const deleted = await Formacao.destroy({ where: { id: req.params.id } });
-        if (!deleted) {
-            return res.status(404).json({ error: "Formação não encontrada" });
-        }
-        return res.status(204).send();
-    } catch (e) {
-        return res.status(500).json({ error: e.message });
+  try {
+    const deleted = await Formacao.destroy({ where: { id: req.params.id } });
+
+    if (!deleted) {
+      return res.status(404).json({ error: "Formação não encontrada" });
     }
-}
+
+    return res.status(200).json({ message: "Formação excluída com sucesso!" });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+};
+
 
 export const getFormacao = async (req, res) => {
     try {
