@@ -71,16 +71,8 @@ async function curriculumDefault() {
 
 models.sequelize
   .sync({ force: false })
-  .then(async () => {
+  .then(() => {
     console.log("Banco sincronizado");
-
-    // opcional: descomente se quiser popular o banco toda vez
-    // await curriculumDefault();
-
-    // ✅ Aqui está o que faltava!
-    app.listen(port, () => {
-      console.log(`🚀 Servidor rodando na porta ${port}`);
-    });
   })
   .catch((err) => console.error("Erro ao sincronizar banco:", err));
 
